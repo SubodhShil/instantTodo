@@ -23,7 +23,6 @@ const NewToDo = (props) => {
         setTodo({ title: "", desc: "" });
     }
 
-
     return (
         <form onSubmit={handleSubmit} className="grid gap-3 mt-5 m-auto rounded-md p-1 pt-5 w-1/2 ">
             <Input size="md" label="Your Task" type='text' id='title' name='title' value={title} onChange={handleChange} />

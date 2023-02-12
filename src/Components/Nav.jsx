@@ -13,8 +13,37 @@ import {
 
 import { FcGoogle } from 'react-icons/fc';
 
+//^ firebase imports
+import { initializeApp } from "firebase/app";
+import app from '../Firebase/firebase.init.js';
+
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+const auth = getAuth(app);
+
 export default function Nav() {
+    //* Google Authentication
+
+    const googleProvider = new GoogleAuthProvider();
+    const [loginSuccess, setLoginSuccess] = useState(false);
+
+    const handleGoogleSignIn = (event) => {
+        event.preventDefault();
+
+        console.log("Google added");
+        signInWithPopup(auth, googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setLoginSuccess(true);
+            })
+            .catch(error => {
+                console.log('error: ', error);
+            })
+    }
+
     const [openNav, setOpenNav] = useState(false);
+
 
     useEffect(() => {
         window.addEventListener(
@@ -82,12 +111,19 @@ export default function Nav() {
                 <div className="hidden lg:block">{navList}</div>
                 <Menu>
                     <MenuHandler>
-                        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-                            <span>Sign In</span>
-                        </Button>
+                        {(loginSuccess) ?
+                            <Button variant="gradient" size="sm" className="hidden lg:inline-block h-[50px] w-[50px] rounded-full">
+                                <span><img src="https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png" alt="" /></span>
+                            </Button>
+                            :
+                            <Button variant="gradient" size="sm" className="hidden lg:inline-block">
+                                <span>Sign In</span>
+                            </Button>
+
+                        }
                     </MenuHandler>
                     <MenuList>
-                        <MenuItem className=" border font-bold flex justify-center items-center gap-4 border-blue-400"> <FcGoogle className="text-2xl"></FcGoogle>Google</MenuItem>
+                        <MenuItem onClick={handleGoogleSignIn} className="border font-bold flex justify-center items-center gap-4 border-blue-400"> <FcGoogle className="text-2xl"></FcGoogle>Google</MenuItem>
 
                         {/* <MenuItem className=" border font-bold flex justify-center items-center gap-4">Menu Item 2</MenuItem>
                         <MenuItem className=" border font-bold flex justify-center items-center gap-4">Menu Item 3</MenuItem> */}
