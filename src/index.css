@@ -5,5 +5,5 @@
   @tailwind utilities;
 
   * {
-    font-family: 'Work Sans' !important;
+    font-family: 'Work Sans';
   }

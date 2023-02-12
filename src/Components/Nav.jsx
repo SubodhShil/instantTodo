@@ -116,10 +116,15 @@ export default function Nav() {
                                 <span><img src="https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png" alt="" /></span>
                             </Button>
                             :
-                            <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-                                <span>Sign In</span>
-                            </Button>
-
+                            <div className="relative">
+                                <Button variant="gradient" size="sm" className="hidden lg:inline-block relative">
+                                    <span>Sign In</span>
+                                </Button>
+                                <span className="min-[450px]:invisible flex h-5 w-3 absolute top-[-10px] right-[-6px] mt-1 mr-1">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-400"></span>
+                                </span>
+                            </div>
                         }
                     </MenuHandler>
                     <MenuList>

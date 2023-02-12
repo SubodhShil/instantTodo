@@ -28,9 +28,10 @@ const NewToDo = (props) => {
             <Input size="md" label="Your Task" type='text' id='title' name='title' value={title} onChange={handleChange} />
             <Input size="lg" label="Description" type='text' id='desc' name='desc' value={desc} onChange={handleChange} />
 
-            <button className='transition duration-300 ease-in-out h-[50px] w-[50px] rounded-full bg-light-green-700 flex justify-center items-center m-auto hover:shadow-lg hover:shadow-green-500 outline-transparent'>
+            <button className='mt-5 transition duration-300 ease-in-out h-[50px] w-[50px] rounded-full bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-pink-500 via-red-500 to-yellow-500 flex justify-center items-center m-auto hover:shadow-lg hover:shadow-[orangered] outline-transparent'>
                 <BsPlusLg className='text-white' />
             </button>
+
         </form>
     );
 };
