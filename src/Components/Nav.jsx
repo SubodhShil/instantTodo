@@ -5,7 +5,13 @@ import {
     Typography,
     Button,
     IconButton,
+    Menu,
+    MenuHandler,
+    MenuList,
+    MenuItem,
 } from "@material-tailwind/react";
+
+import { FcGoogle } from 'react-icons/fc';
 
 export default function Nav() {
     const [openNav, setOpenNav] = useState(false);
@@ -74,9 +80,19 @@ export default function Nav() {
                     <span className="font-bold text-2xl">Instant Todo</span>
                 </Typography>
                 <div className="hidden lg:block">{navList}</div>
-                <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-                    <span>Sign In</span>
-                </Button>
+                <Menu>
+                    <MenuHandler>
+                        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
+                            <span>Sign In</span>
+                        </Button>
+                    </MenuHandler>
+                    <MenuList>
+                        <MenuItem className=" border font-bold flex justify-center items-center gap-4 border-blue-400"> <FcGoogle className="text-2xl"></FcGoogle>Google</MenuItem>
+
+                        {/* <MenuItem className=" border font-bold flex justify-center items-center gap-4">Menu Item 2</MenuItem>
+                        <MenuItem className=" border font-bold flex justify-center items-center gap-4">Menu Item 3</MenuItem> */}
+                    </MenuList>
+                </Menu>
                 <IconButton
                     variant="text"
                     className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -118,9 +134,18 @@ export default function Nav() {
             <MobileNav open={openNav}>
                 <div className="container mx-auto">
                     {navList}
-                    <Button variant="gradient" size="sm" fullWidth className="mb-2">
-                        <span>Sign In</span>
-                    </Button>
+                    <Menu>
+                        <MenuHandler>
+                            <Button variant="gradient" size="sm" fullWidth className="mb-2">
+                                <span>Sign In</span>
+                            </Button>
+                        </MenuHandler>
+                        <MenuList>
+                            <MenuItem className="bg-yellow-200"> <FcGoogle></FcGoogle> Google</MenuItem>
+                            <MenuItem>Menu Item 2</MenuItem>
+                            <MenuItem>Menu Item 3</MenuItem>
+                        </MenuList>
+                    </Menu>
                 </div>
             </MobileNav>
         </Navbar>
