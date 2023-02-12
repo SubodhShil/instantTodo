@@ -51,7 +51,7 @@ const ML5 = () => {
         <h1 className="ml5" ref={titleRef}>
             <span className="text-wrapper">
                 <span className="line line1"></span>
-                <h1 className="text-center letters letters-left text-4xl font-extrabold font-['Space_Grotesk'] text-transparent bg-clip-text bg-gradient-to-br from-orange-400 to-red-600 mb-2">  Sign In </h1>
+                <h1 className="text-center letters letters-left text-6xl font-extrabold font-['Space_Grotesk'] text-transparent bg-clip-text bg-gradient-to-br from-orange-400 to-red-600 mb-3">  Sign In </h1>
                 <h1 className="text-center letters ampersand text-4xl font-extrabold font-['Space_Grotesk'] text-transparent bg-clip-text bg-gradient-to-br from-orange-400 to-red-600 mb-2">&amp; </h1>
                 <h1 className="text-center letters letters-right text-4xl font-extrabold font-['Space_Grotesk'] text-transparent bg-clip-text bg-gradient-to-br from-orange-400 to-red-600"> Make It Happen</h1>
                 <span className="line line2 text-3xl text-white"></span>
