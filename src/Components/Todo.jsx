@@ -15,8 +15,12 @@ import { FaTrash } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Todo = ({ todo }) => {
-    const { title, desc } = todo;
+const Todo = (props) => {
+    const { title, desc } = props.todo;
+
+    const handleClick = (id) => {
+        props.onRemoveTodo(id);
+    }
 
     const toastifyShow = (id) => {
         toast.error(`Todo deleted`, {
@@ -30,7 +34,6 @@ const Todo = ({ todo }) => {
             theme: "colored",
         });
 
-
     }
     return (
         <article className="w-80 md:w-3/4 xl:w-5/6 rounded-lg shadow-2xl shadow-blue-400 p-3 bg-[#242424] hover:bg-blue-gray-800 text-white font-bold flex flex-row justify-between items-center">
@@ -41,9 +44,13 @@ const Todo = ({ todo }) => {
 
             <div className="">
 
-                <Button onClick={toastifyShow} variant="gradient" color="red">
+                <Button onClick={() => {
+                    toastifyShow();
+                    handleClick();
+                }} variant="gradient" color="red">
                     <FaTrash className='text-white text-lg' />
                 </Button>
+
                 <ToastContainer />
             </div>
         </article>

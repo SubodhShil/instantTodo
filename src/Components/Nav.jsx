@@ -1,3 +1,4 @@
+//^ Library imports
 import { useState, useEffect } from "react";
 import {
     Navbar,
@@ -12,13 +13,18 @@ import {
 } from "@material-tailwind/react";
 
 import { FcGoogle } from 'react-icons/fc';
+import { HiCursorClick } from 'react-icons/hi';
 
 //^ firebase imports
 import { initializeApp } from "firebase/app";
 import app from '../Firebase/firebase.init.js';
-
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
+//* Component imports
+import SignUp from "./SignUp.jsx";
+
+
+//~ Codebase begins
 const auth = getAuth(app);
 
 export default function Nav() {
@@ -26,6 +32,10 @@ export default function Nav() {
 
     const googleProvider = new GoogleAuthProvider();
     const [loginSuccess, setLoginSuccess] = useState(false);
+
+
+    //* login name show in the nav
+    const [userName, setUserName] = useState("");
 
     const handleGoogleSignIn = (event) => {
         event.preventDefault();
@@ -42,8 +52,12 @@ export default function Nav() {
             })
     }
 
-    const [openNav, setOpenNav] = useState(false);
+    //* SingUp component state management
+    //^ setting up signup form show or hide state
+    const [openSignUp, setOpenSignUp] = useState(true);
 
+    //* navbar opening state management
+    const [openNav, setOpenNav] = useState(false);
 
     useEffect(() => {
         window.addEventListener(
@@ -109,11 +123,15 @@ export default function Nav() {
                     <span className="font-bold text-2xl">Instant Todo</span>
                 </Typography>
                 <div className="hidden lg:block">{navList}</div>
+
                 <Menu>
                     <MenuHandler>
                         {(loginSuccess) ?
-                            <Button variant="gradient" size="sm" className="hidden lg:inline-block h-[50px] w-[50px] rounded-full">
-                                <span><img src="https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png" alt="" /></span>
+                            // <Button variant="gradient" size="sm" className="hidden lg:inline-block h-[50px] w-[50px] rounded-full">
+                            //     <span><img src="https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png" alt="" /></span>
+                            // </Button>
+                            <Button variant="gradient" size="sm" className="hidden lg:inline-block">
+                                <span className="font-bold text-lg font-['Poppins'] animate-text bg-gradient-to-r from-black via-purple-800 to-green-900 bg-clip-text text-transparent">{userName}</span>
                             </Button>
                             :
                             <div className="relative">
@@ -127,11 +145,20 @@ export default function Nav() {
                             </div>
                         }
                     </MenuHandler>
-                    <MenuList>
+
+                    <MenuList className="flex flex-col gap-2 p-8 border border-blue-700">
                         <MenuItem onClick={handleGoogleSignIn} className="border font-bold flex justify-center items-center gap-4 border-blue-400"> <FcGoogle className="text-2xl"></FcGoogle>Google</MenuItem>
 
-                        {/* <MenuItem className=" border font-bold flex justify-center items-center gap-4">Menu Item 2</MenuItem>
-                        <MenuItem className=" border font-bold flex justify-center items-center gap-4">Menu Item 3</MenuItem> */}
+                        <div className="flex justify-center">
+                            <p className="font-bold text-blue-900">Or, <u>Create an account</u></p>
+                        </div>
+
+                        <MenuItem onClick={() => setOpenSignUp(!openSignUp)} className="border font-bold flex justify-center items-center gap-4 border-blue-400"> <HiCursorClick className="text-lg"></HiCursorClick> Sign Up</MenuItem>
+
+                        //^ Sign up form
+                        <SignUp open={openSignUp} setLogin={setLoginSuccess} setUserName={setUserName} />
+
+                        {/* <MenuItem className=" border font-bold flex justify-center items-center gap-4">Menu Item 3</MenuItem> */}
                     </MenuList>
                 </Menu>
                 <IconButton
@@ -181,6 +208,7 @@ export default function Nav() {
                                 <span>Sign In</span>
                             </Button>
                         </MenuHandler>
+
                         <MenuList>
                             <MenuItem className="bg-yellow-200"> <FcGoogle></FcGoogle> Google</MenuItem>
                             <MenuItem>Menu Item 2</MenuItem>

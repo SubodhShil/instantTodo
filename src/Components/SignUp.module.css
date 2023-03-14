@@ -1,0 +1,23 @@
+.boxShadow {
+    box-shadow: 6px 4px 23px -2px orangered;
+    transition: .5s;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -ms-transition: .5s;
+    -o-transition: .5s;
+}
+
+.createAccountBtn {
+    background-image: linear-gradient(to bottom right, orange, orangered);
+    box-shadow: 3px 5px 12px 3px orangered;
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+}
+
+.createAccountBtn:hover {
+    background-image: linear-gradient(180deg, orange, orangered);
+    box-shadow: 3px 5px 12px 3px orangered;
+}

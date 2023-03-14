@@ -11,15 +11,21 @@ const Home = () => {
         setTodos((prevTodos) => {
             return [...prevTodos, { id: uuidv4(), todo }];
         })
+        console.log(todos);
     }
+
+    const handleRemoveTodo = (id) => {
+        const filteredTodo = todos.filter((todo) => todo.id !== id);
+        setTodos(filteredTodo);
+    };
 
     return (
         <div>
             <Nav />
             <NewToDo AddTodo={handleAddTodo} />
-            <Todos todos={todos} />
+            <Todos todos={todos} onRemoveTodo={handleRemoveTodo} />
         </div>
     );
 };
 
-export default Home; 
+export default Home;
