@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from "@material-tailwind/react";
 import { BsPlusLg } from 'react-icons/bs';
+import { toast } from 'react-toastify';
 
 const NewToDo = (props) => {
     const [todo, setTodo] = useState({
@@ -19,6 +20,19 @@ const NewToDo = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (todo.title.trim() === '' || todo.desc.trim() === '') {
+            toast.error("Please fill out both fields.", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return;
+        }
         props.AddTodo(todo);
         setTodo({ title: "", desc: "" });
     }
