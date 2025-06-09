@@ -15,7 +15,7 @@ const Todos = (props) => {
                     <ML5 />
                 </div>
             ) :
-                todos.map(todo => <Todo key={todo.id} todo={todo.todo} onRemoveTodo={props.onRemoveTodo} />)
+                todos.map(todo => <Todo key={todo.id} todo={todo.todo} id={todo.id} onRemoveTodo={props.onRemoveTodo} onUpdateTodo={props.onUpdateTodo} />)
             }
         </section>
     );

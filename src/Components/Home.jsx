@@ -11,19 +11,25 @@ const Home = () => {
         setTodos((prevTodos) => {
             return [...prevTodos, { id: uuidv4(), todo }];
         })
-        console.log(todos);
     }
 
     const handleRemoveTodo = (id) => {
-        const filteredTodo = todos.filter((todo) => todo.id !== id);
-        setTodos(filteredTodo);
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+
+    const handleUpdateTodo = (id, updatedTodo) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, todo: updatedTodo } : todo
+            )
+        );
     };
 
     return (
         <div>
             <Nav />
             <NewToDo AddTodo={handleAddTodo} />
-            <Todos todos={todos} onRemoveTodo={handleRemoveTodo} />
+            <Todos todos={todos} onRemoveTodo={handleRemoveTodo} onUpdateTodo={handleUpdateTodo} />
         </div>
     );
 };
