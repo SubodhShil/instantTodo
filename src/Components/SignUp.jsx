@@ -5,13 +5,12 @@ import { basicSchema } from '../schemas';
 //^ sign up CSS
 import Styles from './SignUp.module.css';
 
-//* firebase imports
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import app from '../Firebase/firebase.init';
+//* auth imports
+import { useAuthStore } from '../stores/authStore';
 
 const SignUp = ({ open, setLogin, setUserName }) => {
-
-    const auth = getAuth(app);
+    const { signup, isLoading } = useAuthStore();
+    
     if (!open) return null;
 
     //^ states for authentication
@@ -22,18 +21,20 @@ const SignUp = ({ open, setLogin, setUserName }) => {
     const [name, setName] = useState("");
 
     //* form sign up registration handling
-    const handleRegister = (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(result => {
-                const user = result.user;
+        try {
+            const result = await signup(email, password, name);
+            if (result.success) {
                 setLogin(true);
-                setUserName(name);
-            })
-            .catch(error => {
-                console.error(error);
-            })
+                setUserName(result.user.name);
+            } else {
+                console.error('Signup failed:', result.error);
+            }
+        } catch (error) {
+            console.error('Signup error:', error);
+        }
     }
 
     return (

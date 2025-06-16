@@ -15,41 +15,52 @@ import {
 import { FcGoogle } from 'react-icons/fc';
 import { HiCursorClick } from 'react-icons/hi';
 
-//^ firebase imports
-import { initializeApp } from "firebase/app";
-import app from '../Firebase/firebase.init.js';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+//^ auth imports
+import { useAuthStore } from '../stores/authStore';
 
 //* Component imports
 import SignUp from "./SignUp.jsx";
 
 
 //~ Codebase begins
-const auth = getAuth(app);
-
 export default function Nav() {
-    //* Google Authentication
-
-    const googleProvider = new GoogleAuthProvider();
+    //* Auth state management
+    const { user, isAuthenticated, login, logout, checkAuth } = useAuthStore();
     const [loginSuccess, setLoginSuccess] = useState(false);
-
 
     //* login name show in the nav
     const [userName, setUserName] = useState("");
 
-    const handleGoogleSignIn = (event) => {
+    // Check auth on component mount
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
+
+    // Update local state when auth state changes
+    useEffect(() => {
+        setLoginSuccess(isAuthenticated);
+        if (user) {
+            setUserName(user.name);
+        }
+    }, [isAuthenticated, user]);
+
+    const handleGoogleSignIn = async (event) => {
         event.preventDefault();
 
-        console.log("Google added");
-        signInWithPopup(auth, googleProvider)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                setLoginSuccess(true);
-            })
-            .catch(error => {
-                console.log('error: ', error);
-            })
+        // Fake Google login - just use a dummy email
+        const dummyEmail = 'user@gmail.com';
+        const dummyPassword = 'password';
+
+        try {
+            const result = await login(dummyEmail, dummyPassword);
+            if (result.success) {
+                console.log('Login successful:', result.user);
+            } else {
+                console.log('Login failed:', result.error);
+            }
+        } catch (error) {
+            console.log('Login error:', error);
+        }
     }
 
     //* SingUp component state management
@@ -131,7 +142,7 @@ export default function Nav() {
                             //     <span><img src="https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png" alt="" /></span>
                             // </Button>
                             <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-                                <span className="font-bold text-lg font-['Poppins'] animate-text bg-gradient-to-r from-black via-purple-800 to-green-900 bg-clip-text text-transparent">{userName}</span>
+                                <span className="font-bold text-[16px] font-['Space_Grotesk'] text-white text-transparent">{userName}</span>
                             </Button>
                             :
                             <div className="relative">
@@ -147,7 +158,7 @@ export default function Nav() {
                     </MenuHandler>
 
                     <MenuList className="flex flex-col gap-2 p-8 border border-blue-700">
-                        <MenuItem onClick={handleGoogleSignIn} className="border font-bold flex justify-center items-center gap-4 border-blue-400"> <FcGoogle className="text-2xl"></FcGoogle>Google</MenuItem>
+                        <MenuItem onClick={handleGoogleSignIn} className="border font-bold flex justify-center items-center gap-4 border-blue-400"> <FcGoogle className="text-2xl"></FcGoogle>Google (Fake)</MenuItem>
 
                         <div className="flex justify-center">
                             <p className="font-bold text-blue-900">Or, <u>Create an account</u></p>
