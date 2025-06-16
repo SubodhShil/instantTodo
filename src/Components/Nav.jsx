@@ -11,6 +11,7 @@ import {
     MenuList,
     MenuItem,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 import { FcGoogle } from 'react-icons/fc';
 import { HiCursorClick } from 'react-icons/hi';
@@ -85,9 +86,9 @@ export default function Nav() {
                 color="blue-gray"
                 className="p-1 text-white font-bold"
             >
-                <a href="#" className="flex items-center">
+                <Link to="/" className="flex items-center">
                     Pages
-                </a>
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -95,9 +96,9 @@ export default function Nav() {
                 color="blue-gray"
                 className="p-1 text-white font-bold"
             >
-                <a href="#" className="flex items-center">
+                <Link to="#" className="flex items-center">
                     Account
-                </a>
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -105,9 +106,9 @@ export default function Nav() {
                 color="blue-gray"
                 className="p-1 text-white font-bold"
             >
-                <a href="#" className="flex items-center">
+                <Link to="#" className="flex items-center">
                     Timer
-                </a>
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -115,9 +116,9 @@ export default function Nav() {
                 color="blue-gray"
                 className="p-1 text-white font-bold"
             >
-                <a href="#" className="flex items-center">
+                <Link to="/pomodoro" className="flex items-center">
                     Pomodoro
-                </a>
+                </Link>
             </Typography>
         </ul>
     );
